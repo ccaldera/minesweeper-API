@@ -7,5 +7,7 @@ namespace CC.Minesweeper.Core.Interfaces
     public interface IGameRepository : IRepository<Game>
     {
         Task<IEnumerable<Game>> GetByUserIdAsync(string userId);
+
+        Task<Game> GetByUserIdAndGameIdAsync(string userId, string gameId);
     }
 }

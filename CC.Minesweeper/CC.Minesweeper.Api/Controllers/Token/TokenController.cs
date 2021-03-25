@@ -27,6 +27,11 @@ namespace CC.Minesweeper.Api.Controllers.Token
             this.usersService = usersService;
         }
 
+        /// <summary>
+        /// Creates a new access token for the requested user credentials.
+        /// </summary>
+        /// <param name="request">The request containing the user credentials.</param>
+        /// <returns>The user credentials.</returns>
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Post(LoginRequest request)

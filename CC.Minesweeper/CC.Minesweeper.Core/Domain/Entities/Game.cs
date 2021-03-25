@@ -1,9 +1,148 @@
-﻿namespace CC.Minesweeper.Core.Domain.Entities
+﻿using CC.Minesweeper.Core.Domain.ValueObjects;
+using CC.Minesweeper.Core.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CC.Minesweeper.Core.Domain.Entities
 {
     public class Game : IEntity
     {
         public string Id { get; set; }
 
         public string UserId { get; set; }
+
+        public int Rows { get; set; }
+
+        public int Columns { get; set; }
+
+        public int Mines { get; set; }
+
+        public Cell[,] Board { get; set; }
+
+        public GameStatus Status { get; set; }
+
+
+        public void SetOwner(string userId)
+        {
+            UserId = userId;
+        }
+
+        public void Initialize(int rows, int columns, int mines)
+        {
+            Rows = rows;
+            Columns = columns;
+            Mines = mines;
+
+            ValidateValues();
+
+            InitializeBoard();
+
+            SetMines();
+
+            SetCounters();
+        }
+
+        private void SetCounters()
+        {
+            for (int x = 0; x < Rows; x++)
+            {
+                for (int y = 0; y < Columns; y++)
+                {
+                    var cell = Board[x, y];
+
+                    if (cell.IsMine)
+                    {
+                        continue;
+                    }
+
+                    var neighbours = GetNeighbours(x, y);
+
+                    cell.Value = neighbours.Count(x => x.IsMine);
+                }
+            }
+        }
+
+        private IEnumerable<Cell> GetNeighbours(int row, int col)
+        {
+            var neighbours = new List<Cell>();
+
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (!(i == 0 && j == 0) && CheckLimits(row + i, col + j))
+                    {
+                        neighbours.Add(Board[row + i, col + j]);
+                    }
+                }
+            }
+
+            return neighbours;
+        }
+
+        private bool CheckLimits(int row, int col)
+        {
+            return row >= 0 && row < Rows && col >= 0 && col < Columns;
+        }
+
+        private void SetMines()
+        {
+            var random = new Random(Guid.NewGuid().GetHashCode());
+
+            for (int i = 0; i < Mines; i++)
+            {
+                var x = random.Next(0, Rows);
+                var y = random.Next(0, Columns);
+
+                if (!Board[x, y].IsMine)
+                {
+                    Board[x, y].SetMine();
+                }
+            }
+        }
+
+        private void InitializeBoard()
+        {
+            Status = GameStatus.InProgress;
+
+            Board = new Cell[Rows, Columns];
+
+            for (int x = 0; x < Rows; x++)
+            {
+                for (int y = 0; y < Columns; y++)
+                {
+                    Board[x, y] = new Cell();
+                }
+            }
+        }
+
+        private void ValidateValues()
+        {
+            if (Board != null)
+            {
+                throw new BusinessException("This game already started.");
+            }
+
+            if (Rows < 1)
+            {
+                throw new BusinessException("Rows must be greater or equal to 1.");
+            }
+
+            if (Columns < 1)
+            {
+                throw new BusinessException("Columns must be greater or equal to 1.");
+            }
+
+            if (Mines < 1)
+            {
+                throw new BusinessException("There must be at least 1 mine in the board.");
+            }
+
+            if (Rows * Columns < Mines)
+            {
+                throw new BusinessException("The amount of mines must be lower than the number of cells in the board.");
+            }
+        }
     }
 }

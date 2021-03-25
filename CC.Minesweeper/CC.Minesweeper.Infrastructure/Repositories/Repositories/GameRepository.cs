@@ -18,6 +18,15 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
         {
         }
 
+        public async Task<Game> GetByUserIdAndGameIdAsync(string userId, string gameId)
+        {
+            var documents = await Collection.FindAsync(x => x.UserId == userId && x.Id == gameId);
+
+            var document = documents.SingleOrDefault();
+
+            return ToEntity(document);
+        }
+
         public async Task<IEnumerable<Game>> GetByUserIdAsync(string userId)
         {
             var documents = await Collection.FindAsync(x => x.UserId == userId);

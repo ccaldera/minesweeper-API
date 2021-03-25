@@ -18,6 +18,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace CC.Minesweeper.Api
@@ -70,6 +72,7 @@ namespace CC.Minesweeper.Api
                 .AddSingleton(securityConfiguration)
                 .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies())
                 .AddSingleton<UsersService>()
+                .AddSingleton<GameService>()
                 .AddSingleton<IUsersRepository, UsersRepository>()
                 .AddSingleton<IGameRepository, GameRepository>()
                 .AddSingleton<IEncryptionSerice, EncryptionService>()
@@ -93,7 +96,17 @@ namespace CC.Minesweeper.Api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "Minesweeper Api", Version = "v1.0" });
+                c.SwaggerDoc("v1.0", new OpenApiInfo 
+                { 
+                    Title = "Minesweeper Api", 
+                    Version = "v1.0",
+                    Description  = "Fully functional Minesweeper API"
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 

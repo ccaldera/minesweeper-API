@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using InvalidOperationException = CC.Minesweeper.Core.Exceptions.InvalidOperationException;
 
 namespace CC.Minesweeper.Api.Middlewares
 {
@@ -42,7 +41,7 @@ namespace CC.Minesweeper.Api.Middlewares
 
                 logger.LogInformation(message);
             }
-            else if (ex is InvalidOperationException || ex is BusinessException)
+            else if (ex is BusinessException)
             {
                 code = HttpStatusCode.Conflict;
 

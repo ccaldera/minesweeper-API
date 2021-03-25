@@ -23,6 +23,11 @@ namespace CC.Minesweeper.Api.Controllers.Users
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Register a new user in the system.
+        /// </summary>
+        /// <param name="request">Contains the new user information.</param>
+        /// <returns>No content returned.</returns>
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Post(RegistrationRequest request)
@@ -34,6 +39,10 @@ namespace CC.Minesweeper.Api.Controllers.Users
             return NoContent();
         }
 
+        /// <summary>
+        /// Gets the information of the current user.
+        /// </summary>
+        /// <returns>The user information.</returns>
         [Authorize]
         [HttpGet("me")]
         public async Task<IActionResult> Get()
@@ -47,6 +56,10 @@ namespace CC.Minesweeper.Api.Controllers.Users
             return Ok(profile);
         }
 
+        /// <summary>
+        /// Deletes the current user.
+        /// </summary>
+        /// <returns>No content.</returns>
         [Authorize]
         [HttpDelete("me")]
         public async Task<IActionResult> Delete()
