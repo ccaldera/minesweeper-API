@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-lg-4 offset-lg-4 col-md-12 mt-5">
+            <h3>Registration</h3>
+            <form name="form" class="form" #registerForm="ngForm" [mustMatch]="['password', 'confirmPassword']">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input  type="email" 
+                            class="form-control" 
+                            id="username" 
+                            name="username" 
+                            [(ngModel)]="username" 
+                            aria-describedby="emailHelp" 
+                            placeholder="Enter email"
+                            required
+                            minlength="6"
+                            email
+                            #usernameInput="ngModel">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    
+                    <div *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)"class="alert alert-danger">
+  
+                      <div *ngIf="usernameInput.errors.required">Username is required.</div>
+                      <div *ngIf="usernameInput.errors.minlength">Username must be at least 6 characters long.</div>
+                      <div *ngIf="usernameInput.errors.email">Invalid email.</div>
+  
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input  type="password" 
+                            class="form-control" 
+                            id="password" 
+                            name="password" 
+                            [(ngModel)]="password" 
+                            placeholder="Password"
+                            required
+                            minlength="6"
+                            #passwordInput="ngModel">
+                  </div>
+                  <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"class="alert alert-danger">
+  
+                    <div *ngIf="passwordInput.errors.required">Password is required.</div>
+                    <div *ngIf="passwordInput.errors.minlength">Password must be at least 6 characters long.</div>
+  
+                  </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Confirm Password</label>
+                    <input  type="password" 
+                            class="form-control"
+                            id="confirmPassword" 
+                            name="confirmPassword" 
+                            [(ngModel)]="confirmPassword" 
+                            placeholder="Confirm Password"
+                            #confirmPasswordInput="ngModel" 
+                            required>
+                  </div>
+
+                  <div *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)" class="alert alert-danger">
+                  
+                    <div>Passwords must match</div>
+                </div>
+                
+                <button class="btn btn-primary" (click)="register()" [disabled]="!registerForm.valid">Register</button>
+                <button class="btn btn-secondary ml-3" (click)="login()">Back lo login page</button>
+
+             </form>
+        </div>
+    </div>
+</div>
+
