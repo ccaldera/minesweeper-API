@@ -1,4 +1,6 @@
-﻿using CC.Minesweeper.Core.Domain.ValueObjects;
+﻿using CC.Minesweeper.Core.Domain.Entities;
+using CC.Minesweeper.Core.Domain.ValueObjects;
+using System;
 
 namespace CC.Minesweeper.Infrastructure.Repositories.Entities
 {
@@ -15,5 +17,7 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Entities
         public Cell[,] Board { get; set; }
 
         public GameStatus Status { get; set; }
+
+        public DateTime CreationDate { get; set; }
     }
 }

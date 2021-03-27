@@ -46,6 +46,40 @@ namespace CC.Minesweeper.Api.Controllers.Games
             return Ok(response);
         }
 
+        [Authorize]
+        [HttpPatch("{id}/reveal")]
+        public async Task<IActionResult> Patch(string id, RevealRequest request)
+        {
+            var userId = GetCurrentUserId();
+
+            var result = await gameService.Reveal(
+                userId,
+                id,
+                request.Row,
+                request.Column);
+
+            var response = mapper.Map<Game, GameResponse>(result);
+
+            return Ok(response);
+        }
+
+        [Authorize]
+        [HttpPatch("{id}/switch-flag")]
+        public async Task<IActionResult> PatchFlag(string id, RevealRequest request)
+        {
+            var userId = GetCurrentUserId();
+
+            var result = await gameService.SwitchFlag(
+                userId,
+                id,
+                request.Row,
+                request.Column);
+
+            var response = mapper.Map<Game, GameResponse>(result);
+
+            return Ok(response);
+        }
+
         /// <summary>
         /// Gets all the games register to the current user.
         /// </summary>

@@ -14,6 +14,7 @@ import { MustMatchDirective } from './must-match.validator';
 import { ToasterModule } from 'angular2-toaster';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { GamesService } from './services/games.services';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgxSpinnerModule 
   ],
   providers: [
-    AuthService
+    AuthService,
+    GamesService
   ],
   bootstrap: [AppComponent]
 })

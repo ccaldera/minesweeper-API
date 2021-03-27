@@ -22,6 +22,9 @@ namespace CC.Minesweeper.Core.Domain.Entities
 
         public GameStatus Status { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
+        public DateTime End { get; set; }
 
         public void SetOwner(string userId)
         {
@@ -41,6 +44,92 @@ namespace CC.Minesweeper.Core.Domain.Entities
             SetMines();
 
             SetCounters();
+
+            SetCreationDate();
+        }
+
+        public void Reveal(int row, int col)
+        {
+            if(Status != GameStatus.InProgress)
+            {
+                throw new BusinessException("This game was already completed");
+            }
+
+            var cell = Board[row, col];
+
+            if (cell.IsRevealed)
+            {
+                throw new BusinessException("Cell already revealed");
+            }
+            else if (cell.IsFlagged)
+            {
+                cell.IsFlagged = false;
+            }
+
+            cell.IsRevealed = true;
+
+            if (cell.IsMine)
+            {
+                GameOver();
+            }
+            else if(cell.Value == 0)
+            {
+                RevealEmpty(row, col);
+            }
+
+            if (Status == GameStatus.InProgress)
+            {
+                CheckWin();
+            }
+        }
+
+        public void SwitchFlag(int row, int col)
+        {
+            var cell = Board[row, col];
+
+            cell.IsFlagged = !cell.IsFlagged;
+        }
+
+        private void CheckWin()
+        {
+            int revealed = 0;
+
+            for (int x = 0; x < Rows; x++)
+            {
+                for (int y = 0; y < Columns; y++)
+                {
+                    var cell = Board[x, y];
+
+                    if (cell.IsRevealed)
+                    {
+                        revealed++;
+                    }
+                }
+            }
+
+            if (revealed == (Rows * Columns) - Mines)
+            {
+                SetWin();
+            }
+        }
+
+        public void RevealEmpty(int row, int col)
+        {
+            var neighbours = GetNeighbours(row, col).Where(x => !x.IsRevealed);
+
+            foreach (var neighbour in neighbours)
+            {
+                if(!neighbour.IsMine && !neighbour.IsRevealed)
+                {
+                    neighbour.IsRevealed = true;
+
+                    if (neighbour.Value == 0)
+                    {
+                        RevealEmpty(neighbour.X, neighbour.Y);
+                    }
+                }
+            }
+
         }
 
         private void SetCounters()
@@ -112,7 +201,7 @@ namespace CC.Minesweeper.Core.Domain.Entities
             {
                 for (int y = 0; y < Columns; y++)
                 {
-                    Board[x, y] = new Cell();
+                    Board[x, y] = new Cell(x, y);
                 }
             }
         }
@@ -143,6 +232,39 @@ namespace CC.Minesweeper.Core.Domain.Entities
             {
                 throw new BusinessException("The amount of mines must be lower than the number of cells in the board.");
             }
+        }
+
+        private void GameOver()
+        {
+            Status = GameStatus.Failed;
+
+            for (int x = 0; x < Rows; x++)
+            {
+                for (int y = 0; y < Columns; y++)
+                {
+                    var cell = Board[x, y];
+
+                    cell.IsRevealed = true;
+                }
+            }
+
+            SetEndDate();
+        }
+
+        private void SetWin()
+        {
+            Status = GameStatus.Complete;
+            SetEndDate();
+        }
+
+        private void SetCreationDate() 
+        {
+            CreationDate = DateTime.Now;
+        }
+
+        private void SetEndDate()
+        {
+            End = DateTime.Now;
         }
     }
 }

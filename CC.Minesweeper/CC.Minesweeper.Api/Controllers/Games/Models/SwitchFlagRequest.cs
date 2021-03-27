@@ -1,0 +1,9 @@
+﻿namespace CC.Minesweeper.Api.Controllers.Games.Models
+{
+    public class SwitchFlagRequest
+    {
+        public int Row { get; set; }
+
+        public int Column { get; set; }
+    }
+}

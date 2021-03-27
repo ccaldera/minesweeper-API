@@ -11,15 +11,24 @@ namespace CC.Minesweeper.Api.Controllers.Games.Models
 
         public string UserId { get; set; }
 
+        public int Rows { get; set; }
+
+        public int Columns { get; set; }
+
         public CellResponse[,] Board { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public GameStatusResponse Status { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
         public GameResponse(Game game)
         {
             Id = game.Id;
             UserId = game.Id;
+            CreationDate = game.CreationDate;
+            Rows = game.Rows;
+            Columns = game.Columns;
 
             Board = new CellResponse[game.Rows, game.Columns];
 
