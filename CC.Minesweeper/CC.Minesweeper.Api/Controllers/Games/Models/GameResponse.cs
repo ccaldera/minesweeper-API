@@ -22,6 +22,8 @@ namespace CC.Minesweeper.Api.Controllers.Games.Models
 
         public DateTime CreationDate { get; set; }
 
+        public DateTime EndDate { get; set; }
+
         public GameResponse(Game game)
         {
             Id = game.Id;
@@ -29,6 +31,7 @@ namespace CC.Minesweeper.Api.Controllers.Games.Models
             CreationDate = game.CreationDate;
             Rows = game.Rows;
             Columns = game.Columns;
+            EndDate = game.EndDate;
 
             Board = new CellResponse[game.Rows, game.Columns];
 

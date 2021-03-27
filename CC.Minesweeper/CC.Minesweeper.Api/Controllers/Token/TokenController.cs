@@ -50,7 +50,7 @@ namespace CC.Minesweeper.Api.Controllers.Token
 
                 var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-                var token = new JwtSecurityToken(claims: claims, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
+                var token = new JwtSecurityToken(claims: claims, expires: DateTime.UtcNow.AddMonths(1), signingCredentials: signIn);
 
                 var response = new LoginResponse
                 {

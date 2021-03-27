@@ -19,5 +19,7 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Entities
         public GameStatus Status { get; set; }
 
         public DateTime CreationDate { get; set; }
+
+        public DateTime EndDate { get; set; }
     }
 }

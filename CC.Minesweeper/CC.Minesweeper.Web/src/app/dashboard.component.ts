@@ -4,6 +4,7 @@ import { ToasterService } from 'angular2-toaster';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IGame } from './models/IGame';
 import { GamesService } from './services/games.services';
+import * as moment from 'moment';
 
 @Component({
   selector: 'dashboard',
@@ -18,6 +19,8 @@ export class DashboardComponent implements OnInit{
   mines: number;
   game:IGame;
   header:string = "Welcome!";
+  interval;
+  elapsedTime:string;
 
   constructor(private gamesService:GamesService, private router:Router, private toasterService: ToasterService, private spinnerService: NgxSpinnerService){
 
@@ -60,12 +63,50 @@ export class DashboardComponent implements OnInit{
   }
 
   gameStatus(){
-    if(this.game.status == "InProgress")
+    if(this.game.status == "InProgress"){
       this.header = "Game in progress";
-    if(this.game.status == "Complete")
+    }
+    if(this.game.status == "Complete"){
       this.header = "You Win!";
-    if(this.game.status == "Failed")
+    }
+    if(this.game.status == "Failed"){
       this.header = "You Lose!";
+    }
+
+    this.updateElapsedTime();
+  }
+
+  updateElapsedTime(){
+    if(this.game != undefined){
+
+      clearInterval(this.interval);
+
+      if(this.game.status == "InProgress"){
+        
+        this.interval = setInterval(() => {
+       
+          var start = moment(this.game.creationDate);
+          var end = moment.utc();
+
+          var duration = moment.duration(end.diff(start));
+          this.elapsedTime = moment.utc(duration.as('milliseconds')).format("HH:mm:ss");
+
+        },1000);
+
+      }
+      else{
+        
+        var start = moment(this.game.creationDate);
+        var end = moment(this.game.endDate);
+
+        var duration = moment.duration(end.diff(start));
+        this.elapsedTime =  moment.utc(duration.as('milliseconds')).format("HH:mm:ss");
+      }
+
+      
+      
+    }
+    return null;
   }
 
   async flag(event: MouseEvent, x:number, y: number){

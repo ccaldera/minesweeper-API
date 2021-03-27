@@ -4,6 +4,7 @@ export class IGame {
     board:ICell[][];
     status:string;
     creationDate: Date;
+    endDate: Date;
 }
 
 export class ICell{
