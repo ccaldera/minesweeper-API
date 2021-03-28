@@ -21,7 +21,7 @@ Minesweeper-API uses a number of open-source projects to work properly:
 - [Fluent Validator](https://docs.fluentvalidation.net/en/latest/aspnet.html) - v9.3.0
 - [Moq](https://github.com/moq/Moq.AutoMocker) - v4.15.1
 
-And of course Minesweeper-API itself is open source with a [public repository] (https://github.com/ccaldera/minesweeper-API)
+And of course Minesweeper-API itself is open source with a [public repository](https://github.com/ccaldera/minesweeper-API)
  on GitHub.
  
 ## Technical decisions
@@ -41,15 +41,15 @@ And of course Minesweeper-API itself is open source with a [public repository] (
 You can visit the swagger endpoint containing the methods and resources required to call the endpoints [here](https://minesweeper-api.azurewebsites.net/swagger/index.html)
 
 1. Register a user using **/api/users/register**
-    1.1 Email and password are required.
+ - Email and password are required.
 2. Get a security token using **/api/token**
-    2.1 Token format is "bearer {{token}}" and must be included in the "Authorization" header.
+ - Token format is "bearer {{token}}" and must be included in the "Authorization" header.
 3. Create a new game **/api/games/new**
-    3.1 It must contain rows, columns, and number of mines, the bigger the grid the longer it will take to process later.
+ - 3.1 It must contain rows, columns, and number of mines, the bigger the grid the longer it will take to process later.
 4. You can reveal a cell by requesting **/api/games/{id}/reveal**
-    4.1 x and y values are required.
-5. You can flag and un-flag a cell by calling **/api/games/{id}/switch-flag**
-6. Finally, you can delete a game by calling **/api/games/{id}**
+ - 4.1 x and y values are required.
+6. You can flag and un-flag a cell by calling **/api/games/{id}/switch-flag**
+7. Finally, you can delete a game by calling **/api/games/{id}**
 
 You can test the web api client [here](https://ccaldera-minesweeper.azurewebsites.net/login)
 
