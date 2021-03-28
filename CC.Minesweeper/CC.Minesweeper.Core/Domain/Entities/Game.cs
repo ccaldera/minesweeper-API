@@ -85,6 +85,10 @@ namespace CC.Minesweeper.Core.Domain.Entities
 
         public void SwitchFlag(int row, int col)
         {
+            if(Status != GameStatus.InProgress)
+            {
+                throw new BusinessException("This game was already completed");
+            }
             var cell = Board[row, col];
 
             cell.IsFlagged = !cell.IsFlagged;
