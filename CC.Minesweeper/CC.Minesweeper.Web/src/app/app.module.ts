@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard.component';
 import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './services/auth.services';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register.component';
 import { CommonModule } from '@angular/common';
@@ -14,7 +13,7 @@ import { MustMatchDirective } from './must-match.validator';
 import { ToasterModule } from 'angular2-toaster';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { GamesService } from './services/games.services';
+import { MinesweeperSdkModule } from 'minesweeper-sdk';
 
 @NgModule({
   declarations: [
@@ -33,11 +32,10 @@ import { GamesService } from './services/games.services';
     ReactiveFormsModule,
     BrowserAnimationsModule, 
     ToasterModule.forRoot(),
-    NgxSpinnerModule 
+    NgxSpinnerModule,
+    MinesweeperSdkModule
   ],
   providers: [
-    AuthService,
-    GamesService
   ],
   bootstrap: [AppComponent]
 })

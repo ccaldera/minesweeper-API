@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
-import { IAuthToken } from './models/IAuthToken';
-import { AuthService } from './services/auth.services';
+import { IAuthToken } from 'projects/minesweeper-sdk/src/lib/minesweeper.models';
+import { MinesweeperService } from 'projects/minesweeper-sdk/src/lib/minesweeper.service';
 
 @Component({
   selector: 'login',
@@ -15,7 +15,7 @@ export class RegisterComponent {
   password: string;
   confirmPassword: string;
 
-  constructor(private authService:AuthService, private router: Router, private toasterService: ToasterService){}
+  constructor(private minesweeperService:MinesweeperService, private router: Router, private toasterService: ToasterService){}
 
   async register(): Promise<void>{
 
@@ -25,11 +25,11 @@ export class RegisterComponent {
       
     try
     {
-        await this.authService.register(this.username, this.password);
+        await this.minesweeperService.register(this.username, this.password);
 
         try
         {
-            var authToken = <IAuthToken>await this.authService.getToken(this.username, this.password);
+            var authToken = <IAuthToken>await this.minesweeperService.getToken(this.username, this.password);
 
             localStorage.setItem("token", authToken.token_type + " " + authToken.access_token);
 

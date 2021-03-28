@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { IGame } from './models/IGame';
-import { GamesService } from './services/games.services';
 import * as moment from 'moment';
+import { MinesweeperService } from 'projects/minesweeper-sdk/src/lib/minesweeper.service';
+import { IGame } from 'projects/minesweeper-sdk/src/lib/minesweeper.models';
 
 @Component({
   selector: 'dashboard',
@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit{
   interval;
   elapsedTime:string;
 
-  constructor(private gamesService:GamesService, private router:Router, private toasterService: ToasterService, private spinnerService: NgxSpinnerService){
+  constructor(private minesweeperService:MinesweeperService, private router:Router, private toasterService: ToasterService, private spinnerService: NgxSpinnerService){
 
   }
 
@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit{
 
   async loadGames(){
     try{
-      this.games = await this.gamesService.get();
+      this.games = await this.minesweeperService.getGame();
     }catch(error){
       this.toasterService.pop('error', 'Error', error.message);
     }
@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit{
 
   async newGame(){
     try{
-      this.game = await this.gamesService.new(this.rows, this.columns, this.mines);
+      this.game = await this.minesweeperService.newGame(this.rows, this.columns, this.mines);
 
       this.gameStatus();
 
@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit{
     }
     
     try{
-      this.game = await this.gamesService.flag(this.game.id, x, y);
+      this.game = await this.minesweeperService.flagCell(this.game.id, x, y);
 
     }catch(error){
       this.toasterService.pop('error', 'Error', error.message);
@@ -132,7 +132,7 @@ export class DashboardComponent implements OnInit{
     }
 
     try{
-      this.game = await this.gamesService.reveal(this.game.id, x, y);
+      this.game = await this.minesweeperService.revealCell(this.game.id, x, y);
 
       if(this.game.status == "Complete"){
         this.toasterService.pop('success', "You Win!");
@@ -152,7 +152,7 @@ export class DashboardComponent implements OnInit{
   }
 
   logout(){
-    localStorage.removeItem("token");
+    this.minesweeperService.logout();
 
     this.router.navigateByUrl("/login");
   }

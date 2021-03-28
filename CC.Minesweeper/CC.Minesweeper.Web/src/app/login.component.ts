@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
-import { IAuthToken } from './models/IAuthToken';
-import { AuthService } from './services/auth.services';
+import { IAuthToken } from 'projects/minesweeper-sdk/src/lib/minesweeper.models';
+import { MinesweeperService } from 'projects/minesweeper-sdk/src/lib/minesweeper.service';
 
 @Component({
   selector: 'login',
@@ -14,7 +14,7 @@ export class LoginComponent {
   username:string;
   password: string;
 
-  constructor(private authService:AuthService, private router: Router, private toasterService: ToasterService){}
+  constructor(private minesweeperService:MinesweeperService, private router: Router, private toasterService: ToasterService){}
 
   async login(): Promise<void>{
       
@@ -22,9 +22,7 @@ export class LoginComponent {
     
     try
     {
-        authToken = <IAuthToken>await this.authService.getToken(this.username, this.password);
-
-        localStorage.setItem("token", authToken.token_type + " " + authToken.access_token);
+        authToken = <IAuthToken>await this.minesweeperService.getToken(this.username, this.password);
 
         this.router.navigateByUrl("/dashboard");
     }

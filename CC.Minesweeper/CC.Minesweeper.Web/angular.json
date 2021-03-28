@@ -118,6 +118,46 @@
           }
         }
       }
+    },
+    "minesweeper-sdk": {
+      "projectType": "library",
+      "root": "projects/minesweeper-sdk",
+      "sourceRoot": "projects/minesweeper-sdk/src",
+      "prefix": "ms",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/minesweeper-sdk/tsconfig.lib.json",
+            "project": "projects/minesweeper-sdk/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/minesweeper-sdk/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/minesweeper-sdk/src/test.ts",
+            "tsConfig": "projects/minesweeper-sdk/tsconfig.spec.json",
+            "karmaConfig": "projects/minesweeper-sdk/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/minesweeper-sdk/tsconfig.lib.json",
+              "projects/minesweeper-sdk/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "minesweeper"
