@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CC.Minesweeper.Api.Controllers.Games.Models;
 using CC.Minesweeper.Core.Domain.Entities;
+using CC.Minesweeper.Core.Domain.ValueObjects;
 using System;
 
 namespace CC.Minesweeper.Api.Controllers.Games.Mappers

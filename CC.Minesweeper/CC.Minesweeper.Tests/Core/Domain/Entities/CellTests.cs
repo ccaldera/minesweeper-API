@@ -1,4 +1,5 @@
 ﻿using CC.Minesweeper.Core.Domain.Entities;
+using CC.Minesweeper.Core.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
