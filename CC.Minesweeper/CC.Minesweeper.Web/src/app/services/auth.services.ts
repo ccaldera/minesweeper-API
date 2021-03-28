@@ -6,8 +6,8 @@ import { IAuthToken } from "..//models/IAuthToken";
 export class AuthService {
 
     currentToken:IAuthToken;
-    tokenUrl:string = "https://localhost:5001/api/token"
-    usersUrl:string = "https://localhost:5001/api/users/register"
+    tokenUrl:string = "https://minesweeper-api.azurewebsites.net/api/token"
+    usersUrl:string = "https://minesweeper-api.azurewebsites.net/api/users/register"
         
     constructor(
         private http: HttpClient

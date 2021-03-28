@@ -7,7 +7,7 @@ import { IGame } from '../models/IGame';
 export class GamesService {
 
     currentToken:IAuthToken;
-    storiesUrl:string = "https://localhost:5001/api/games"
+    storiesUrl:string = "https://minesweeper-api.azurewebsites.net/api/games"
         
     constructor(
         private http: HttpClient
