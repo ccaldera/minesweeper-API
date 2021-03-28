@@ -35,7 +35,7 @@ namespace CC.Minesweeper.Api.Controllers.Games.Models
         public CellResponse[,] Board { get; set; }
 
         /// <summary>
-        /// Gets or sets the game status.
+        /// Gets or sets the game status, posible values are InProgress | Complete | Failed.
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
         public GameStatusResponse Status { get; set; }
@@ -46,8 +46,8 @@ namespace CC.Minesweeper.Api.Controllers.Games.Models
         public DateTime CreationDate { get; set; }
 
         /// <summary>
-        /// Gets or sets the end date of the game.
+        /// Gets or sets the end date of the game, null if the game is still in progress.
         /// </summary>
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace CC.Minesweeper.Core.Domain.Entities
 
         public DateTime CreationDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// Sets user owner of this game.

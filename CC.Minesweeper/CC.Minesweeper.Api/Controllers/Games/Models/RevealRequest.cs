@@ -6,12 +6,12 @@
     public class RevealRequest
     {
         /// <summary>
-        /// Gets or set sthe row number.
+        /// Gets or set the row number to reveal.
         /// </summary>
         public int Row { get; set; }
 
         /// <summary>
-        /// Gets or sets the column number.
+        /// Gets or sets the column number to reveal.
         /// </summary>
         public int Column { get; set; }
     }
