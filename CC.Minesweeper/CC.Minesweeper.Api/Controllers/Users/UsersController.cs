@@ -36,7 +36,7 @@ namespace CC.Minesweeper.Api.Controllers.Users
         [AllowAnonymous]
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Post(RegistrationRequest request)
+        public async Task<ActionResult> Post(RegistrationRequest request)
         {
             var user = mapper.Map<RegistrationRequest, User>(request);
 
@@ -53,7 +53,7 @@ namespace CC.Minesweeper.Api.Controllers.Users
         [Authorize]
         [HttpGet("me")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<UserProfileResponse>> Get()
         {
             var email = GetCurrentUserEmail();
 
@@ -72,7 +72,7 @@ namespace CC.Minesweeper.Api.Controllers.Users
         [Authorize]
         [HttpDelete("me")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Delete()
+        public async Task<ActionResult> Delete()
         {
             var email = GetCurrentUserEmail();
 

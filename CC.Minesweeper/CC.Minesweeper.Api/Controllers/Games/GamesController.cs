@@ -37,7 +37,7 @@ namespace CC.Minesweeper.Api.Controllers.Games
         [Authorize]
         [HttpPost("new")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Post(NewGameRequest request)
+        public async Task<ActionResult<GameResponse>> Post(NewGameRequest request)
         {
             var userId = GetCurrentUserId();
 
@@ -62,7 +62,7 @@ namespace CC.Minesweeper.Api.Controllers.Games
         [Authorize]
         [HttpPatch("{id}/reveal")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Patch(string id, RevealRequest request)
+        public async Task<ActionResult<GameResponse>> Patch(string id, RevealRequest request)
         {
             var userId = GetCurrentUserId();
 
@@ -87,7 +87,7 @@ namespace CC.Minesweeper.Api.Controllers.Games
         [Authorize]
         [HttpPatch("{id}/switch-flag")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> PatchFlag(string id, RevealRequest request)
+        public async Task<ActionResult<GameResponse>> PatchFlag(string id, RevealRequest request)
         {
             var userId = GetCurrentUserId();
 
@@ -110,7 +110,7 @@ namespace CC.Minesweeper.Api.Controllers.Games
         [Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<IEnumerable<GameResponse>>> Get()
         {
             var userId = GetCurrentUserId();
 
@@ -130,7 +130,7 @@ namespace CC.Minesweeper.Api.Controllers.Games
         [Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
             var userId = GetCurrentUserId();
 

@@ -42,7 +42,7 @@ namespace CC.Minesweeper.Api.Controllers.Token
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Post(LoginRequest request)
+        public async Task<ActionResult<LoginResponse>> Post(LoginRequest request)
         {
             var user = await usersService.LoginAsync(request.Username, request.Password);
 

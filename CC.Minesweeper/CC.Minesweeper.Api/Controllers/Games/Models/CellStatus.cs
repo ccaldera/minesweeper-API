@@ -5,8 +5,19 @@
     /// </summary>
     public enum CellStatus
     {
+        /// <summary>
+        /// Hidden
+        /// </summary>
         Hidden,
+
+        /// <summary>
+        /// Visible
+        /// </summary>
         Visible,
+
+        /// <summary>
+        /// Flagged
+        /// </summary>
         Flagged,
     }
 }

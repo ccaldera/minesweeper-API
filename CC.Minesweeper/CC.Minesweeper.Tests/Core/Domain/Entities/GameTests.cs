@@ -75,13 +75,13 @@ namespace CC.Minesweeper.Tests.Core.Domain.Entities
         {
             // Arrange
             var game = new Game();
-            int rows = 10;
-            int columns = 10;
+            int rows = 5;
+            int columns = 5;
 
             int xIndex = -1;
             int yIndex = -1; 
             
-            game.Initialize(rows, columns, 3);
+            game.Initialize(rows, columns, 12);
 
             for (int x = 0; x < rows; x++)
             {
