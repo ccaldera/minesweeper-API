@@ -1,14 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CC.Minesweeper.Api.Controllers.Common
 {
+    /// <summary>
+    /// The base controller.
+    /// </summary>
     [ApiController]
     public class ApiBaseController : ControllerBase
     {
+        /// <summary>
+        /// Gets the current user email.
+        /// </summary>
+        /// <returns>the user email.</returns>
         protected string GetCurrentUserEmail()
         {
             if (User?.Identity?.IsAuthenticated != true)
@@ -19,6 +23,10 @@ namespace CC.Minesweeper.Api.Controllers.Common
             return email;
         }
 
+        /// <summary>
+        /// Gets the user id.
+        /// </summary>
+        /// <returns>the user id.</returns>
         protected string GetCurrentUserId()
         {
             if (User?.Identity?.IsAuthenticated != true)

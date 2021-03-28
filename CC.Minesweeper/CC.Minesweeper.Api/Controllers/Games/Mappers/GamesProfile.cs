@@ -6,6 +6,9 @@ using System;
 
 namespace CC.Minesweeper.Api.Controllers.Games.Mappers
 {
+    /// <summary>
+    /// The game profile mapper class.
+    /// </summary>
     public class GamesProfile : Profile
     {
         public GamesProfile()

@@ -1,5 +1,8 @@
 ﻿namespace CC.Minesweeper.Core.Domain.ValueObjects
 {
+    /// <summary>
+    /// The game status enum.
+    /// </summary>
     public enum GameStatus
     {
         None = 0,

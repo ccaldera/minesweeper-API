@@ -70,6 +70,11 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
             await Collection.FindOneAndReplaceAsync(filter, document);
         }
 
+        /// <summary>
+        /// Maps a document to an entity.
+        /// </summary>
+        /// <param name="document">The document to map.</param>
+        /// <returns>The mapped entity.</returns>
         protected TEntity ToEntity(TDocument document)
         {
             if (document == null)
@@ -80,6 +85,11 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
             return Mapper.Map<TDocument, TEntity>(document);
         }
 
+        /// <summary>
+        /// Maps a list of documents to an entities.
+        /// </summary>
+        /// <param name="document">The list of documents to map.</param>
+        /// <returns>The mapped entities.</returns>
         protected IEnumerable<TEntity> ToEntities(IEnumerable<TDocument> documents)
         {
             if (documents == null)
@@ -90,6 +100,11 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
             return Mapper.Map<IEnumerable<TDocument>, IEnumerable<TEntity>>(documents);
         }
 
+        /// <summary>
+        /// Maps an entity to a document.
+        /// </summary>
+        /// <param name="entity">The entity to map.</param>
+        /// <returns>The mapped document.</returns>
         protected TDocument ToDocument(TEntity entity)
         {
             if (entity == null)

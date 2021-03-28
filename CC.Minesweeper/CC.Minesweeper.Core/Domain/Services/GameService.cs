@@ -104,6 +104,12 @@ namespace CC.Minesweeper.Core.Domain.Services
             return game;
         }
 
+        /// <summary>
+        /// Gets a game by its user id and game id.
+        /// </summary>
+        /// <param name="userId">The requested user id.</param>
+        /// <param name="gameId">The requested game id.</param>
+        /// <returns>The game.</returns>
         private async Task<Game> GetGame(string userId, string gameId)
         {
             var game = await gameRepository.GetByUserIdAndGameIdAsync(userId, gameId);

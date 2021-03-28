@@ -117,6 +117,9 @@ namespace CC.Minesweeper.Core.Domain.Entities
             cell.IsFlagged = !cell.IsFlagged;
         }
 
+        /// <summary>
+        /// Checks if the game was already completed.
+        /// </summary>
         private void CheckWin()
         {
             int revealed = 0;
@@ -140,6 +143,11 @@ namespace CC.Minesweeper.Core.Domain.Entities
             }
         }
 
+        /// <summary>
+        /// Reveals an empty cell.
+        /// </summary>
+        /// <param name="row">The row axis.</param>
+        /// <param name="col">The column axis.</param>
         private void RevealEmpty(int row, int col)
         {
             var neighbours = GetNeighbours(row, col).Where(x => !x.IsRevealed);
@@ -159,6 +167,9 @@ namespace CC.Minesweeper.Core.Domain.Entities
 
         }
 
+        /// <summary>
+        /// Sets the numeric values of a cell.
+        /// </summary>
         private void SetCounters()
         {
             for (int x = 0; x < Rows; x++)
@@ -179,6 +190,12 @@ namespace CC.Minesweeper.Core.Domain.Entities
             }
         }
 
+        /// <summary>
+        /// Gets the neighbours of a given cell.
+        /// </summary>
+        /// <param name="row">The row axis.</param>
+        /// <param name="col">The column axis.</param>
+        /// <returns>A list of cells surrounding the requested one.</returns>
         private IEnumerable<Cell> GetNeighbours(int row, int col)
         {
             var neighbours = new List<Cell>();
@@ -197,11 +214,20 @@ namespace CC.Minesweeper.Core.Domain.Entities
             return neighbours;
         }
 
+        /// <summary>
+        /// Checks the cell boundaries.
+        /// </summary>
+        /// <param name="row">The row axis.</param>
+        /// <param name="col">The column axis.</param>
+        /// <returns></returns>
         private bool CheckLimits(int row, int col)
         {
             return row >= 0 && row < Rows && col >= 0 && col < Columns;
         }
 
+        /// <summary>
+        /// Sets the requested mines in the board.
+        /// </summary>
         private void SetMines()
         {
             var random = new Random(Guid.NewGuid().GetHashCode());
@@ -220,6 +246,9 @@ namespace CC.Minesweeper.Core.Domain.Entities
             }
         }
 
+        /// <summary>
+        /// Initialices a board.
+        /// </summary>
         private void InitializeBoard()
         {
             Status = GameStatus.InProgress;
@@ -235,6 +264,9 @@ namespace CC.Minesweeper.Core.Domain.Entities
             }
         }
 
+        /// <summary>
+        /// Validates the requetsed values.
+        /// </summary>
         private void ValidateValues()
         {
             if (Board != null)
@@ -263,6 +295,9 @@ namespace CC.Minesweeper.Core.Domain.Entities
             }
         }
 
+        /// <summary>
+        /// Sets the game state as failed and reveals the rest of the cells.
+        /// </summary>
         private void GameOver()
         {
             Status = GameStatus.Failed;
@@ -280,17 +315,26 @@ namespace CC.Minesweeper.Core.Domain.Entities
             SetEndDate();
         }
 
+        /// <summary>
+        /// Sets the game as completed.
+        /// </summary>
         private void SetWin()
         {
             Status = GameStatus.Complete;
             SetEndDate();
         }
 
+        /// <summary>
+        /// Sets the creation date.
+        /// </summary>
         private void SetCreationDate() 
         {
             CreationDate = DateTime.UtcNow;
         }
 
+        /// <summary>
+        /// Sets the end date.
+        /// </summary>
         private void SetEndDate()
         {
             EndDate = DateTime.UtcNow;

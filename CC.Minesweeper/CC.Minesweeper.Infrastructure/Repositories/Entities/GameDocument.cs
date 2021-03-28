@@ -1,9 +1,11 @@
-﻿using CC.Minesweeper.Core.Domain.Entities;
-using CC.Minesweeper.Core.Domain.ValueObjects;
+﻿using CC.Minesweeper.Core.Domain.ValueObjects;
 using System;
 
 namespace CC.Minesweeper.Infrastructure.Repositories.Entities
 {
+    /// <summary>
+    /// The class representing the game in mongo.
+    /// </summary>
     public class GameDocument : Document
     {
         public string UserId { get; set; }

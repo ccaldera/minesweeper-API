@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace CC.Minesweeper.Api.Middlewares
 {
+    /// <summary>
+    /// The error hanlding middleware class
+    /// </summary>
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate next;
@@ -17,6 +20,12 @@ namespace CC.Minesweeper.Api.Middlewares
             this.next = next;
         }
 
+        /// <summary>
+        /// The invoke handler method.
+        /// </summary>
+        /// <param name="context">The request context to use.</param>
+        /// <param name="logger">The logger.</param>
+        /// <returns></returns>
         public async Task Invoke(HttpContext context, ILogger<ErrorHandlingMiddleware> logger)
         {
             try
@@ -29,6 +38,13 @@ namespace CC.Minesweeper.Api.Middlewares
             }
         }
 
+        /// <summary>
+        /// Maps an exception to its matching http code response.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="ex"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
         private static Task HandleExceptionAsync(HttpContext context, Exception ex, ILogger<ErrorHandlingMiddleware> logger)
         {
             HttpStatusCode code;
@@ -39,19 +55,19 @@ namespace CC.Minesweeper.Api.Middlewares
             {
                 code = HttpStatusCode.NotFound;
 
-                logger.LogInformation(message);
+                logger?.LogInformation(message);
             }
             else if (ex is BusinessException)
             {
                 code = HttpStatusCode.Conflict;
 
-                logger.LogInformation(message);
+                logger?.LogInformation(message);
             }
             else
             {
                 code = HttpStatusCode.InternalServerError;
 
-                logger.LogCritical(ex, message);
+                logger?.LogCritical(ex, message);
             }
 
             var result = JsonConvert.SerializeObject(new { error = message });

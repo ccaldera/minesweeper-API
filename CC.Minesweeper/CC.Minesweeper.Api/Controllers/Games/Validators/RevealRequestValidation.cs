@@ -3,6 +3,9 @@ using FluentValidation;
 
 namespace CC.Minesweeper.Api.Controllers.Games.Validators
 {
+    /// <summary>
+    /// The RevealRequest validator.
+    /// </summary>
     public class RevealRequestValidation : AbstractValidator<RevealRequest>
     {
         public RevealRequestValidation()

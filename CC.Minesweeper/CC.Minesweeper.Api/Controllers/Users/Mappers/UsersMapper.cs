@@ -4,6 +4,9 @@ using CC.Minesweeper.Core.Domain.Entities;
 
 namespace CC.Minesweeper.Api.Controllers.Users.Mappers
 {
+    /// <summary>
+    /// The user profile mapper.
+    /// </summary>
     public class UsersMapper : Profile
     {
         public UsersMapper()

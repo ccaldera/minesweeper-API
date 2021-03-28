@@ -3,6 +3,9 @@ using FluentValidation;
 
 namespace CC.Minesweeper.Api.Controllers.Users.Validators
 {
+    /// <summary>
+    /// The RegistrationRequest validator class.
+    /// </summary>
     public class RegistrationRequestValidator : AbstractValidator<RegistrationRequest>
     {
         public RegistrationRequestValidator()

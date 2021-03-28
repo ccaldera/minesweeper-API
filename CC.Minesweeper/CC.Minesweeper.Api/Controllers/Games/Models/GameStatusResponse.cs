@@ -1,5 +1,8 @@
 ﻿namespace CC.Minesweeper.Api.Controllers.Games.Models
 {
+    /// <summary>
+    /// The game status enum.
+    /// </summary>
     public enum GameStatusResponse
     {
         None = 0,

@@ -3,6 +3,9 @@ using FluentValidation;
 
 namespace CC.Minesweeper.Api.Controllers.Games.Validators
 {
+    /// <summary>
+    /// The NewGameRequest validator.
+    /// </summary>
     public class NewGameRequestValidator : AbstractValidator<NewGameRequest>
     {
         public NewGameRequestValidator()

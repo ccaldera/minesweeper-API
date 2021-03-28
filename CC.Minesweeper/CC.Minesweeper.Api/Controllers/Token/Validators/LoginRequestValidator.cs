@@ -3,6 +3,9 @@ using FluentValidation;
 
 namespace CC.Minesweeper.Api.Controllers.Token.Validators
 {
+    /// <summary>
+    /// The LoginRequest validator.
+    /// </summary>
     public class LoginRequestValidator : AbstractValidator<LoginRequest>
     {
         public LoginRequestValidator()

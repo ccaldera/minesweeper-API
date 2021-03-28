@@ -5,8 +5,10 @@ using System.Text;
 
 namespace CC.Minesweeper.Infrastructure.Services
 {
+    /// <inheritdoc/>
     public class EncryptionService : IEncryptionSerice
     {
+        /// <inheritdoc/>
         public string Encrypt(string value)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(value);
