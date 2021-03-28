@@ -179,7 +179,8 @@ namespace CC.Minesweeper.Core.Domain.Entities
         {
             var random = new Random(Guid.NewGuid().GetHashCode());
 
-            for (int i = 0; i < Mines; i++)
+            int mines = 0;
+            while(mines != Mines)
             {
                 var x = random.Next(0, Rows);
                 var y = random.Next(0, Columns);
@@ -187,6 +188,7 @@ namespace CC.Minesweeper.Core.Domain.Entities
                 if (!Board[x, y].IsMine)
                 {
                     Board[x, y].SetMine();
+                    mines++;
                 }
             }
         }
@@ -228,7 +230,7 @@ namespace CC.Minesweeper.Core.Domain.Entities
                 throw new BusinessException("There must be at least 1 mine in the board.");
             }
 
-            if (Rows * Columns < Mines)
+            if (Rows * Columns <= Mines)
             {
                 throw new BusinessException("The amount of mines must be lower than the number of cells in the board.");
             }
