@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace CC.Minesweeper.Core.Domain.Entities
 {
+    /// <summary>
+    /// Class that represents a minesweeper game.
+    /// </summary>
     public class Game : IEntity
     {
         public string Id { get; set; }
@@ -26,11 +29,21 @@ namespace CC.Minesweeper.Core.Domain.Entities
 
         public DateTime EndDate { get; set; }
 
+        /// <summary>
+        /// Sets user owner of this game.
+        /// </summary>
+        /// <param name="userId"></param>
         public void SetOwner(string userId)
         {
             UserId = userId;
         }
 
+        /// <summary>
+        /// Initializes the game and its cells.
+        /// </summary>
+        /// <param name="rows">The requested rows.</param>
+        /// <param name="columns">The requested columns.</param>
+        /// <param name="mines">The requested mines.</param>
         public void Initialize(int rows, int columns, int mines)
         {
             Rows = rows;
@@ -48,6 +61,11 @@ namespace CC.Minesweeper.Core.Domain.Entities
             SetCreationDate();
         }
 
+        /// <summary>
+        /// Reveals a cells value.
+        /// </summary>
+        /// <param name="row">the row axis.</param>
+        /// <param name="col">the column axis.</param>
         public void Reveal(int row, int col)
         {
             if(Status != GameStatus.InProgress)
@@ -83,6 +101,11 @@ namespace CC.Minesweeper.Core.Domain.Entities
             }
         }
 
+        /// <summary>
+        /// Marks a cell as flagged.
+        /// </summary>
+        /// <param name="row">The row axis.</param>
+        /// <param name="col">the column axis.</param>
         public void SwitchFlag(int row, int col)
         {
             if(Status != GameStatus.InProgress)
@@ -117,7 +140,7 @@ namespace CC.Minesweeper.Core.Domain.Entities
             }
         }
 
-        public void RevealEmpty(int row, int col)
+        private void RevealEmpty(int row, int col)
         {
             var neighbours = GetNeighbours(row, col).Where(x => !x.IsRevealed);
 

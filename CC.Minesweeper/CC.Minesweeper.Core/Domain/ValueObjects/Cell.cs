@@ -1,5 +1,8 @@
-﻿namespace CC.Minesweeper.Core.Domain.Entities
+﻿namespace CC.Minesweeper.Core.Domain.ValueObjects
 {
+    /// <summary>
+    /// Class representing a cell in the board.
+    /// </summary>
     public class Cell
     {
         public Cell(int x, int y)
@@ -20,6 +23,9 @@
 
         public bool IsRevealed { get; set; }
 
+        /// <summary>
+        /// Sets a mine in the cell.
+        /// </summary>
         public void SetMine()
         {
             Value = -1;

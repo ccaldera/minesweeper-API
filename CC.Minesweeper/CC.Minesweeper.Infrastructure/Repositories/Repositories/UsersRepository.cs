@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
 {
+    /// <inheritdoc/>
     public class UsersRepository : MongoDbRepository<UserDocument, User>, IUsersRepository
     {
         public UsersRepository(
@@ -18,6 +19,7 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
         {
         }
 
+        /// <inheritdoc/>
         public async Task<User> GetByEmailAndPasswordAsync(string email, string password)
         {
             var documents = await Collection.FindAsync(x => x.Email == email && x.Password == password);
@@ -26,6 +28,7 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
             return ToEntity(document);
         }
 
+        /// <inheritdoc/>
         public async Task<User> GetByEmailAsync(string email)
         {
             var documents = await Collection.FindAsync(x => x.Email == email);

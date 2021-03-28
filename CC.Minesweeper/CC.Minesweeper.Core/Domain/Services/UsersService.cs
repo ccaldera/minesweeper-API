@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace CC.Minesweeper.Core.Domain.Services
 {
+    /// <summary>
+    /// Class containing the user service operations.
+    /// </summary>
     public class UsersService
     {
         private readonly IUsersRepository usersRepository;
@@ -23,6 +26,12 @@ namespace CC.Minesweeper.Core.Domain.Services
             this.gameRepository = gameRepository;
         }
 
+        /// <summary>
+        /// Validates username and password.
+        /// </summary>
+        /// <param name="username">The requested username.</param>
+        /// <param name="password">The requested password.</param>
+        /// <returns>The user.</returns>
         public async Task<User> LoginAsync(string username, string password)
         {
             var encryptedPassword = encryptionSerice.Encrypt(password);
@@ -32,6 +41,11 @@ namespace CC.Minesweeper.Core.Domain.Services
             return user;
         }
 
+        /// <summary>
+        /// Gets a user by email.
+        /// </summary>
+        /// <param name="email">The requested email.</param>
+        /// <returns>The user.</returns>
         public async Task<User> GetUserAsync(string email)
         {
             var user = await usersRepository.GetByEmailAsync(email);
@@ -41,6 +55,11 @@ namespace CC.Minesweeper.Core.Domain.Services
             return user;
         }
 
+        /// <summary>
+        /// Registers a new user.
+        /// </summary>
+        /// <param name="newUser">The requested new user.</param>
+        /// <returns>The new user.</returns>
         public async Task<User> RegisterUserAsync(User newUser)
         {
             var existingUser = await usersRepository.GetByEmailAsync(newUser.Email);
@@ -57,6 +76,11 @@ namespace CC.Minesweeper.Core.Domain.Services
             return newUser;
         }
 
+        /// <summary>
+        /// Deletes a user by email.
+        /// </summary>
+        /// <param name="email">The requested email.</param>
+        /// <returns>A task.</returns>
         public async Task DeleteUser(string email)
         {
             var user = await usersRepository.GetByEmailAsync(email);

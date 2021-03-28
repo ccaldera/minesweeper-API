@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
 {
+    /// <inheritdoc/>
     public class MongoDbRepository<TDocument, TEntity> : IRepository<TEntity>
         where TDocument : Document
         where TEntity : IEntity
@@ -29,6 +30,7 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
             Collection = database.GetCollection<TDocument>(collectionName);
         }
 
+        /// <inheritdoc/>
         public async Task DeleteAsync(TEntity entity)
         {
             var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, entity.Id);
@@ -36,6 +38,7 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
             await Collection.FindOneAndDeleteAsync(filter);
         }
 
+        /// <inheritdoc/>
         public async Task<TEntity> GetAsync(string id)
         {
             var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, id);
@@ -47,6 +50,7 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
             return entity;
         }
 
+        /// <inheritdoc/>
         public async Task<string> InsertAsync(TEntity entity)
         {
             var document = ToDocument(entity);
@@ -56,6 +60,7 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
             return document.Id;
         }
 
+        /// <inheritdoc/>
         public async Task UpdateAsync(TEntity entity)
         {
             var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, entity.Id);

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
 {
+    /// <inheritdoc/>
     public class GameRepository : MongoDbRepository<GameDocument, Game>, IGameRepository
     {
         public GameRepository(
@@ -18,6 +19,7 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
         {
         }
 
+        /// <inheritdoc/>
         public async Task<Game> GetByUserIdAndGameIdAsync(string userId, string gameId)
         {
             var documents = await Collection.FindAsync(x => x.UserId == userId && x.Id == gameId);
@@ -27,6 +29,7 @@ namespace CC.Minesweeper.Infrastructure.Repositories.Repositories
             return ToEntity(document);
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<Game>> GetByUserIdAsync(string userId)
         {
             var documents = await Collection.FindAsync(x => x.UserId == userId);

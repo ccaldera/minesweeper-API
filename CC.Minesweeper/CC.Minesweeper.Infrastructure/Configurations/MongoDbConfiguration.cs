@@ -1,5 +1,8 @@
 ﻿namespace CC.Minesweeper.Infrastructure.Configurations
 {
+    /// <summary>
+    /// Configurations for mongoDb connections.
+    /// </summary>
     public class MongoDbConfiguration
     {
         public string DatabaseName { get; set; }
