@@ -121,3 +121,7 @@ ul ul a {
     border-radius: 0px;
     border-color: #cfcfcf;
 }
+
+#games > li > a {
+    color: #fff;
+}

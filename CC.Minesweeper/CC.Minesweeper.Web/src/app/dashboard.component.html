@@ -48,10 +48,13 @@
             <div class="row" *ngFor="let row of game.board; index as i">
                 <div class="" *ngFor="let col of row; index as j">
                     <button *ngIf="col.status == 'Hidden'" class="btn btn-sm cell" (click)="reveal(i,j)" (contextmenu)="flag($event, i, j)"></button>
-                    <button *ngIf="col.status == 'Visible' && col.value > 0" class="btn btn-sm cell">{{col.value}}</button>
+                    <button *ngIf="col.status == 'Visible' && col.value == 1" class="btn btn-sm cell" style="color: royalblue;font-weight: bold;">{{col.value}}</button>
+                    <button *ngIf="col.status == 'Visible' && col.value == 2" class="btn btn-sm cell" style="color: darkgreen;font-weight: bold;">{{col.value}}</button>
+                    <button *ngIf="col.status == 'Visible' && col.value == 3" class="btn btn-sm cell" style="color: red;font-weight: bold;">{{col.value}}</button>
+                    <button *ngIf="col.status == 'Visible' && col.value > 3" class="btn btn-sm cell" style="color: darkblue;font-weight: bold;">{{col.value}}</button>
                     <button disabled *ngIf="col.status == 'Visible' && col.value == 0" class="btn btn-sm cell"></button>
-                    <button disabled *ngIf="col.status == 'Visible' && col.value == -1" class="btn btn-sm cell">M</button>
-                    <button *ngIf="col.status == 'Flagged'" (contextmenu)="flag($event, i, j)" class="btn btn-sm cell">?</button>
+                    <button disabled *ngIf="col.status == 'Visible' && col.value == -1" class="btn btn-sm cell"><i class="fa fa-bomb" aria-hidden="true"></i></button>
+                    <button *ngIf="col.status == 'Flagged'" (contextmenu)="flag($event, i, j)" class="btn btn-sm cell"><i class="fa fa-flag" style="color: brown;" aria-hidden="true"></i></button>
                 </div>
             </div>
         </div>

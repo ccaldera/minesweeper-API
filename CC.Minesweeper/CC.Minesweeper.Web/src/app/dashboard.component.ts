@@ -38,14 +38,22 @@ export class DashboardComponent implements OnInit{
   }
 
   async loadGames(){
+
+    this.spinnerService.show();
+
     try{
       this.games = await this.minesweeperService.getGame();
     }catch(error){
       this.toasterService.pop('error', 'Error', error.message);
     }
+
+    this.spinnerService.hide();
   }
 
   async newGame(){
+
+    this.spinnerService.show();
+
     try{
       this.game = await this.minesweeperService.newGame(this.rows, this.columns, this.mines);
 
@@ -55,6 +63,9 @@ export class DashboardComponent implements OnInit{
     }catch(error){
       this.toasterService.pop('error', 'Error', error.message);
     }
+
+    this.spinnerService.hide();
+
   }
 
   changeGame(game:IGame){
@@ -117,12 +128,17 @@ export class DashboardComponent implements OnInit{
       return;
     }
     
+    this.spinnerService.show();
+
     try{
+
       this.game = await this.minesweeperService.flagCell(this.game.id, x, y);
 
     }catch(error){
       this.toasterService.pop('error', 'Error', error.message);
     }
+
+    this.spinnerService.hide();
   }
 
   async reveal(x:number, y: number){
@@ -130,6 +146,8 @@ export class DashboardComponent implements OnInit{
     if(this.game.status != "InProgress"){
       return;
     }
+
+    this.spinnerService.show();
 
     try{
       this.game = await this.minesweeperService.revealCell(this.game.id, x, y);
@@ -149,6 +167,8 @@ export class DashboardComponent implements OnInit{
     }catch(error){
       this.toasterService.pop('error', 'Error', error.message);
     }
+
+    this.spinnerService.hide();
   }
 
   logout(){
