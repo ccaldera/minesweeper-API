@@ -1,19 +1,29 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
+import { MyServiceOptions } from "./minesweeper.config";
 import { IAuthToken, IGame } from "./minesweeper.models";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MinesweeperService{
-    private readonly apiRoot:string = "https://minesweeper-api.azurewebsites.net/api/";
+
+    private readonly apiRoot:string;
 
     currentToken:IAuthToken;
-    tokenUrl:string = this.apiRoot + "token"
-    usersUrl:string = this.apiRoot + "users/register"
-    storiesUrl:string = this.apiRoot + "games"
+    tokenUrl:string;
+    usersUrl:string;
+    storiesUrl:string;
 
-    constructor(private http:HttpClient){}
+    constructor(@Inject('config') private config:MyServiceOptions, private http:HttpClient){
+        
+        this.apiRoot = this.config.serverUrl;
+
+        this.tokenUrl = this.apiRoot + "token";
+        this.usersUrl = this.apiRoot + "users/register";
+        this.storiesUrl = this.apiRoot + "games";
+
+    }
 
     public async getToken(username: string, password: string):Promise<IAuthToken>
     {

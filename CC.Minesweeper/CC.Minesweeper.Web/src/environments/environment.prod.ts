@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  serverUrl: "https://minesweeper-api.azurewebsites.net/api/"
 };
